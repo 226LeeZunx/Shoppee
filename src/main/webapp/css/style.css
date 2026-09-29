@@ -1,0 +1,263 @@
+/* ==========================================================================
+   1. CÀI ĐẶT CHUNG (GLOBAL) & FONT CHỮ
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: #f4f9f5; /* Nền xanh lục cực nhạt, dịu mắt */
+    color: #333333;
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: #2e7d32; /* Xanh lục đậm */
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #1b5e20;
+}
+
+.page-title {
+    text-align: center;
+    color: #2e7d32;
+    margin: 40px 0 25px;
+    font-weight: 700;
+    font-size: 28px;
+}
+
+/* ==========================================================================
+   2. HEADER & THANH ĐIỀU HƯỚNG
+   ========================================================================== */
+header {
+    background-color: #ffffff;
+    border-bottom: 2px solid #a5d6a7; /* Đường viền xanh mint */
+    padding: 15px 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(46, 125, 50, 0.05); /* Bóng đổ xanh lục nhạt */
+}
+
+header a {
+    margin-right: 15px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+header span {
+    margin-right: 20px;
+    color: #555;
+}
+
+header button {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #81c784;
+    padding: 8px 18px;
+    border-radius: 20px; /* Bo góc tròn mềm mại */
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+header button:hover {
+    background-color: #4caf50;
+    color: #ffffff;
+    border-color: #4caf50;
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+}
+
+/* ==========================================================================
+   3. FORM ĐĂNG NHẬP / ĐĂNG KÝ
+   ========================================================================== */
+.auth-form {
+    max-width: 420px;
+    margin: 0 auto 50px;
+    padding: 35px 30px;
+    background-color: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(46, 125, 50, 0.08);
+}
+
+.auth-form div {
+    margin-bottom: 20px;
+}
+
+.auth-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2e7d32;
+    font-size: 15px;
+}
+
+.auth-form input, .auth-form select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #c8e6c9;
+    border-radius: 8px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    outline: none;
+    background-color: #fafdfa;
+    transition: all 0.3s ease;
+}
+
+.auth-form input:focus, .auth-form select:focus {
+    border-color: #4caf50;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.15); /* Hiệu ứng viền sáng mờ khi nhập */
+}
+
+/* ==========================================================================
+   4. BẢNG HIỂN THỊ (SẢN PHẨM, GIỎ HÀNG, LỊCH SỬ)
+   ========================================================================== */
+.table-products {
+    width: 80%;
+    margin: 0 auto 30px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden; /* Giữ bo góc cho table */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04);
+}
+
+.table-products th {
+    background-color: #4caf50;
+    color: #ffffff;
+    padding: 16px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.table-products td {
+    padding: 16px;
+    border-bottom: 1px solid #e8f5e9;
+    vertical-align: middle;
+}
+
+.table-products tr:last-child td {
+    border-bottom: none;
+}
+
+.table-products tr:hover {
+    background-color: #f1f8f2; /* Màu hover dòng mềm mại */
+}
+
+/* ==========================================================================
+   5. CÁC LOẠI NÚT BẤM (BUTTONS)
+   ========================================================================== */
+.btn-submit {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.btn-submit:hover {
+    box-shadow: 0 6px 15px rgba(67, 160, 71, 0.4);
+    transform: translateY(-1px);
+}
+
+.btn-checkout {
+    background: linear-gradient(135deg, #4caf50 0%, #2e7d32 100%);
+    color: white;
+    padding: 12px 25px;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-checkout:hover {
+    box-shadow: 0 6px 15px rgba(46, 125, 50, 0.4);
+    transform: translateY(-1px);
+}
+
+/* Nút Cập nhật màu vàng nhẹ */
+.btn-update {
+    background-color: #fff8e1;
+    color: #f57f17;
+    border: 1px solid #ffe082;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+.btn-update:hover { background-color: #ffecb3; }
+
+/* Nút Xóa màu đỏ nhạt (hài hòa với tổng thể) */
+.btn-remove {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+.btn-remove:hover { background-color: #ffcdd2; }
+
+/* ==========================================================================
+   6. HỘP THOẠI & THÔNG BÁO
+   ========================================================================== */
+.cart-actions {
+    text-align: center;
+    margin: 30px 0 50px;
+}
+
+/* Khung hiển thị Hóa đơn ở trang Thank.jsp */
+.bill-box {
+    width: 55%;
+    margin: 40px auto;
+    padding: 40px;
+    border: 2px dashed #81c784;
+    background-color: #ffffff;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(76, 175, 80, 0.08);
+}
+
+.message-error {
+    text-align: center;
+    color: #c62828;
+    background-color: #ffebee;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 0 auto 20px;
+    width: fit-content;
+    min-width: 300px;
+    border: 1px solid #ffcdd2;
+}
+
+.message-success {
+    text-align: center;
+    color: #2e7d32;
+    background-color: #e8f5e9;
+    padding: 12px;
+    border-radius: 8px;
+    margin: 0 auto 20px;
+    width: fit-content;
+    min-width: 300px;
+    border: 1px solid #c8e6c9;
+}
