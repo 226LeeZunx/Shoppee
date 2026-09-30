@@ -14,19 +14,19 @@
 
     <form action="RegisterServlet" method="POST" class="auth-form">
         <div>
-            <label>Tài khoản:</label>
+            <label>Account:</label>
             <input type="text" name="account" required>
         </div>
         <div>
-            <label>Mật khẩu:</label>
+            <label>Password:</label>
             <input type="password" name="password" required>
         </div>
         <div>
-            <label>Họ:</label>
+            <label>First name::</label>
             <input type="text" name="first_name" required>
         </div>
         <div>
-            <label>Tên:</label>
+            <label>Last name:</label>
             <input type="text" name="last_name" required>
         </div>
          <div>

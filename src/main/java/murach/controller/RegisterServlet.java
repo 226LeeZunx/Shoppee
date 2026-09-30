@@ -1,5 +1,6 @@
 package murach.controller;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -8,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import murach.business.Customer;
 import murach.dibu.CustomerDB;
+import murach.controller.MailUtilGmail; 
 
 @WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
@@ -22,6 +24,9 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
         
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
         String account = request.getParameter("account");
         String firstName = request.getParameter("first_name");
         String lastName = request.getParameter("last_name");
@@ -44,11 +49,23 @@ public class RegisterServlet extends HttpServlet {
         customer.setEmail(mail);
 
         if (CustomerDB.insertCustomer(customer)) {
-            request.setAttribute("message", "Đăng ký thành công! Vui lòng kiểm tra email và đăng nhập.");
             
-            // Xử lý gửi email
             String to = mail;
-            String from = "dung2k2k6@gmail.com"; 
+            String from = null;
+            
+            try {
+                Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+                from = dotenv.get("MAIL_SEND");
+            } catch (Exception e) {}
+
+            if (from == null || from.isEmpty()) {
+                from = System.getenv("MAIL_SEND");
+            }
+            if (from == null || from.isEmpty()) {
+                from = System.getProperty("MAIL_SEND");
+            }
+            
+            
             String subject = "Welcome to our email list";
             String body = "Dear " + firstName + ",\n\n"
                           + "Thanks for joining our email list. "
@@ -62,15 +79,18 @@ public class RegisterServlet extends HttpServlet {
             
             try {
                 MailUtilGmail.sendMail(to, from, subject, body, isBodyHTML);
+                
+                request.setAttribute("message", "Đăng ký thành công! Vui lòng kiểm tra email và đăng nhập.");
+                request.getRequestDispatcher("login.jsp").forward(request, response);
+                
             } catch (Exception e) {
                 e.printStackTrace();
-                System.out.println("Lỗi gửi email: " + e.getMessage());
+                request.setAttribute("error", "Đăng ký DB thành công nhưng lỗi gửi mail: " + e.getMessage());
+                request.getRequestDispatcher("register.jsp").forward(request, response);
             }
             
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-            
         } else {
-            request.setAttribute("error", "Lỗi hệ thống. Vui lòng thử lại!");
+            request.setAttribute("error", "Lỗi hệ thống lưu Database. Vui lòng thử lại!");
             request.getRequestDispatcher("register.jsp").forward(request, response);
         }
     }

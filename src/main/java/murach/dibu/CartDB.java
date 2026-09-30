@@ -2,6 +2,8 @@ package murach.dibu;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.TypedQuery;
+import java.util.List;
 import murach.business.Cart;
 import murach.business.CartItem;
 import murach.business.Customer;
@@ -12,16 +14,31 @@ public class CartDB {
     public static Cart getCart(Customer customer) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         try {
-            Customer dbCustomer = em.find(Customer.class, customer.getCustomer_id());
-            Cart cart = dbCustomer.getCart();
+            TypedQuery<Cart> query = em.createQuery(
+                "SELECT c FROM Cart c WHERE c.customer.customer_id = :customerId", Cart.class);
+            query.setParameter("customerId", customer.getCustomer_id());
+            List<Cart> carts = query.getResultList();
+            
+            Cart cart = null;
+            if (carts != null && !carts.isEmpty()) {
+                cart = carts.get(0);
+            }
             
             if (cart == null) {
-                EntityTransaction trans = em.getTransaction();
-                trans.begin();
-                cart = new Cart();
-                cart.setCustomer(dbCustomer);
-                em.persist(cart);
-                trans.commit();
+                Customer dbCustomer = em.find(Customer.class, customer.getCustomer_id());
+                if (dbCustomer != null) {
+                    EntityTransaction trans = em.getTransaction();
+                    try {
+                        trans.begin();
+                        cart = new Cart();
+                        cart.setCustomer(dbCustomer);
+                        em.persist(cart);
+                        trans.commit();
+                    } catch (Exception e) {
+                        if (trans.isActive()) trans.rollback();
+                        e.printStackTrace();
+                    }
+                }
             }
             return cart;
         } finally {
@@ -102,7 +119,6 @@ public class CartDB {
         }
     }
 
-    // 4. Xóa hẳn một sản phẩm khỏi giỏ hàng
     public static void removeItem(int cartItemId) {
         EntityManager em = DBUtil.getEmFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
@@ -110,7 +126,6 @@ public class CartDB {
             trans.begin();
             CartItem item = em.find(CartItem.class, cartItemId);
             if (item != null) {
-                // ĐỒNG BỘ CACHE: Bốc khỏi danh sách trong RAM trước khi xóa dưới DB
                 Cart parentCart = item.getCart();
                 if (parentCart != null && parentCart.getItems() != null) {
                     parentCart.getItems().remove(item);
