@@ -16,13 +16,11 @@ public class MailUtilGmail {
         try {
             String apiKey = null;
             
-            // 1. Thử lấy từ Dotenv
             try {
                 Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
                 apiKey = dotenv.get("BREVO_API_KEY");
             } catch (Exception e) {}
 
-            // 2. Lấy từ biến môi trường (Render) hoặc System Properties (đã được DBUtil nạp)
             if (apiKey == null || apiKey.isEmpty()) {
                 apiKey = System.getenv("BREVO_API_KEY");
             }

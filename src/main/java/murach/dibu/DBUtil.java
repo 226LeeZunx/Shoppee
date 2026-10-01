@@ -23,7 +23,8 @@ public class DBUtil {
                 String dbUrl = System.getenv("DB_URL") != null ? System.getenv("DB_URL") : System.getProperty("DB_URL");
                 String dbUser = System.getenv("DB_USER") != null ? System.getenv("DB_USER") : System.getProperty("DB_USER");
                 String dbPassword = System.getenv("DB_PASSWORD") != null ? System.getenv("DB_PASSWORD") : System.getProperty("DB_PASSWORD");
-
+                
+                
             
 
                 Map<String, String> properties = new HashMap<>();
@@ -31,7 +32,7 @@ public class DBUtil {
                 properties.put("jakarta.persistence.jdbc.user", dbUser);
                 properties.put("jakarta.persistence.jdbc.password", dbPassword);
                 properties.put("jakarta.persistence.jdbc.driver", "org.postgresql.Driver");
-                properties.put("jakarta.persistence.schema-generation.database.action", "create");
+                properties.put("jakarta.persistence.schema-generation.database.action", "update");
 
                 emf = Persistence.createEntityManagerFactory("emailListPU", properties);
                 

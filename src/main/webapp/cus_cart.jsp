@@ -24,6 +24,7 @@
         <tbody>
             <c:forEach var="item" items="${cartItems}">
                 <tr>
+                    <!-- Đã khôi phục lại .variant chuẩn với CartItem -->
                     <td>${item.variant.variant_name}</td>
                     <td>${item.variant.price} VNĐ</td>
                     <td>
@@ -49,12 +50,17 @@
         </tbody>
     </table>
     
-    <div class="cart-actions">
-        <a href="${pageContext.request.contextPath}/"><button class="btn-update">Tiếp tục mua sắm</button></a>
+    <div class="cart-actions" style="margin-top: 20px;">
+        <a href="${pageContext.request.contextPath}/"><button class="btn-update" type="button">Tiếp tục mua sắm</button></a>
         
         <c:if test="${not empty cartItems}">
-            <form action="CheckoutServlet" method="POST" style="display:inline-block; margin-left: 20px;">
-                <button type="submit" class="btn-checkout">Thanh toán & Đặt hàng</button>
+            <form action="CheckoutServlet" method="POST" class="payment-options">
+                <label for="paymentMethod">Phương thức thanh toán:</label>
+                <select name="paymentMethod" id="paymentMethod" required>
+                    <option value="COD">Thanh toán khi nhận hàng (COD)</option>
+                    <option value="VNPAY">Thanh toán qua VNPAY</option>
+                </select>
+                <button type="submit" class="btn-checkout">Xác nhận Đặt hàng</button>
             </form>
         </c:if>
     </div>

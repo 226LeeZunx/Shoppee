@@ -43,5 +43,16 @@ public class Order {
     public void setOrder_id(int order_id) {
         this.order_id = order_id;
     }
-
+    @Transient
+    public double getTotalAmount() {
+        double total = 0;
+        if (items != null) {
+            for (OrderItem orderItem : items) {
+                if (orderItem.getItem() != null) {
+                    total += orderItem.getItem().getPrice() * orderItem.getQuantity();
+                }
+            }
+        }
+        return total;
+    }
 }
