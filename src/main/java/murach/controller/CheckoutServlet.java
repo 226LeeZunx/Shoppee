@@ -126,7 +126,8 @@ public class CheckoutServlet extends HttpServlet {
             vnp_Params.put("vnp_ReturnUrl", vnp_ReturnUrl);
             vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
-            Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
+            // ĐÃ SỬA MÚI GIỜ Ở ĐÂY
+            Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
             SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
             vnp_Params.put("vnp_CreateDate", formatter.format(cld.getTime()));
             
